@@ -8,7 +8,7 @@ EagleEye is currently so alpha that it hurts.
 
 ## Installation
 
-No method as of yet, just drop eagleeye/ in the same folder as your project for now.
+Clone/download it, run `sudo python setup.py install`.
 
 ## Usage
 
