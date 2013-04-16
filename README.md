@@ -39,7 +39,7 @@ The following fields can be sent to Riemann:
 * `ttl` - the time in seconds that this state is valid for.
 * `metric_f` - the metric, in floating point (converted automatically for you by EagleEye).
 * `metric_sint64` - the metric, in a long (converted automatically for you by EagleEye).
-* `metric_d` - /does not work in EagleEye yet - please use metric_f/
+* `metric_d` - *does not work in EagleEye yet - please use metric_f*
 
 ## Developing
 
@@ -49,7 +49,7 @@ Think something could be done better? Let me know by email (hawkowl@outlook.com)
 
 EagleEye uses Twisted for the Riemann UDP communication, and ProtoBuf for sending the metrics data over the wire. The protobuf.py shouldn't have to be changed - if it does, get the latest `.proto` from the Riemann site and compile it with `mkdir pb && protoc --python_out pb proto.proto`.
 
-## EagleEye.metric
+### EagleEye.metric
 
 Currently not yet in EagleEye - hold on!
 
