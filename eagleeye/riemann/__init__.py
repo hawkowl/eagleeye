@@ -1,8 +1,6 @@
 import protobuf as pb
-
-from twisted.internet.protocol import Protocol, Factory
-from twisted.internet.protocol import DatagramProtocol
-from twisted.internet import reactor
+from twisted.internet.protocol import Protocol, Factory, DatagramProtocol
+from twisted.internet import reactor, defer
 
 
 class RiemannProtocol(DatagramProtocol):
@@ -26,7 +24,7 @@ class Riemann:
 
     def shutdown(self):
 
-        return self.udpport.stopListening()
+        return defer.maybeDeferred(self.udpport.stopListening)
 
     def submit(self, edict):
 
