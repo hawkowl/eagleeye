@@ -27,7 +27,7 @@ class EagleEyeRiemann(unittest.TestCase):
 
     def test_sendRiemannSingleMetricSINT64(self):
 
-        self.riemann.submit({'host':'EagleEye', 'service': 'EagleEye_Riemann', 'state': 'ok', 'description': 'EagleEye.Riemann is working!', 'metric_sint64': sys.maxint })
+        self.riemann.submit({'host':'EagleEye', 'service': 'EagleEye_Riemann', 'state': 'ok', 'description': 'EagleEye.Riemann is working!', 'metric_sint64': sys.maxint})
 
     def test_format_message_float(self):
 
@@ -45,4 +45,4 @@ class EagleEyeRiemann(unittest.TestCase):
 
     def tearDown(self):
 
-        self.riemann.shutdown()
+        return self.riemann.shutdown()
