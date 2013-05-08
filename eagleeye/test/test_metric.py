@@ -27,7 +27,7 @@ class EagleEyeMetric(unittest.TestCase):
 
     def test_recordRegularFunctionWithThreshold(self):
 
-        @self.ee.record('OneSecondTest', ee_criticalthreshold='5')
+        @self.ee.record('OneSecondTest_Critical', ee_criticalthreshold='500')
         def OneSecondTest_Threshold():
 
             time.sleep(1)
