@@ -1,6 +1,6 @@
-# EagleEye v0.1.0
+# EagleEye v0.2.0
 
-EagleEye is a library for recording metrics inside Twisted applications and other related frameworks (eg. Klein). It consists of a decorator-based generic metric reporting module (in 0.2.0, hopefully) and a Twisted and Protocol Buffers based Riemann reporting module.
+EagleEye is a library for recording metrics inside Twisted applications and other related frameworks (eg. Klein). It consists of a decorator-based metric reporting module and a Twisted and Protocol Buffers based Riemann reporting module.
 
 ## Current Status
 
@@ -41,6 +41,40 @@ The following fields can be sent to Riemann:
 * `metric_sint64` - the metric, in a long (converted automatically for you by EagleEye).
 * `metric_d` - *does not work in EagleEye yet - please use metric_f*
 
+### Metric Recording
+
+EagleEye.Metric is a little class that does the Riemann reporting for you, as invisibly as possible. It will worry about setting up the Riemann connection with what you pass it initially. You can use the Metric and Riemann bits without conflicting, it seems.
+
+This example sets up a Metric object which you can then use to decorate your functions. For this example, the host is `WebServer1`, reporting for the service `DBOperation`, and all metrics are rounded to 2 places after the decimal point. It will also have a `critical` threshold of 5ms. In this example, Riemann is on localhost on port 5555.
+
+```
+from eagleeye.metric import Metric
+
+ee = Metric(myhost='WebServer1', timeprecision=2, host='127.0.0.1', port=5555)
+
+@ee.record('DBOperation', ee_criticalthreshold='5')
+def db_operation(stuff, things):
+
+    # code goes here
+```
+
+EagleEye.Metric is 'invisible' - it won't block a chain of decorators, even. It also handles Deferreds.
+
+#### Klein Reporting
+
+EagleEye.Metric can also report times for your Klein-using app.
+
+```
+@route('/login/process', methods=['POST'])
+@ee.record('app_login', ee_criticalthreshold='5')
+def pg_login_process(request):
+
+    if request.args.get('username')[0] == "myuser":
+        return "hi, myuser!"
+    else:
+        return "get out of here!"
+```
+
 ## Developing
 
 Think something could be done better? Let me know by email (hawkowl@outlook.com) or twitter (@hawkieowl) - if you think you can do it better, Patches Accepted(TM)! :)
@@ -51,7 +85,7 @@ EagleEye uses Twisted for the Riemann UDP communication, and ProtoBuf for sendin
 
 ### EagleEye.metric
 
-Currently not yet in EagleEye - hold on!
+EagleEye's reporting code is in eagleeye/metric.py and consists of a class with fun decorator stuff inside it. (It maybe relies on magic.)
 
 ### Tests
 
