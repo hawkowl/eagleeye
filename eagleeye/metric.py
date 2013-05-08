@@ -11,6 +11,10 @@ class Metric:
         self.host = myhost
         self.timeprecision = timeprecision
 
+    def shutdown(self):
+
+        return maybeDeferred(self.riemann.shutdown)
+
     def record(self, service, *args, **kwargs):
 
         def return_final(nouse, result):
