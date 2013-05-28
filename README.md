@@ -8,7 +8,7 @@ EagleEye is currently so alpha that it hurts.
 
 ## Installation
 
-Clone/download it, run `sudo python setup.py install`.
+`sudo pip install eagleeye` will get the latest release version.
 
 ## Usage
 
